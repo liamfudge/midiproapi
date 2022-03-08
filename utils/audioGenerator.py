@@ -35,7 +35,7 @@ def generate_audio(midi, vels, durs, data):
 
     # 16th note length in ms
     note_val = 120
-    overlayPart = AudioSegment.silent(duration=note_val*BARS)
+    overlayPart = AudioSegment.silent(duration=note_val*data['bars'])
 
     for index, i in enumerate(midi):
         if midi[i] is not None:
