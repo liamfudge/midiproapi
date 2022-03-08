@@ -9,7 +9,7 @@ from fastapi import Request
 
 from utils.audioGenerator import generate_audio
 from utils.config import TITLE, DESC, VERSION, HOST, PORT
-from utils.config import Midi, Vels, Durs
+from utils.config import Midi, Vels, Durs, Data
 from fastapi.templating import Jinja2Templates
 
 app = FastAPI(title=TITLE, description=DESC, version=VERSION)
