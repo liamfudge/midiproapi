@@ -461,6 +461,7 @@ class Durs(BaseModel):
 class Data(BaseModel):
     bars: int
     instID: str
+    tempo: int
 
 
 
