@@ -34,7 +34,7 @@ def generate_audio(midi, vels, durs, data):
     durs = json.loads(durs)
 
     # 16th note length in ms
-    note_val = ((120 / data['tempo']) * 1000) / 8
+    note_val = int(((120 / data['tempo']) * 1000) / 8)
     overlayPart = AudioSegment.silent(duration=note_val*data['bars'])
 
     for index, i in enumerate(midi):
