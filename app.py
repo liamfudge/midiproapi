@@ -16,6 +16,7 @@ app = FastAPI(title=TITLE, description=DESC, version=VERSION)
 
 origins = [
     "http://localhost:3000",
+    "https://midi-pro-v2.web.app/",
 ]
 
 app.add_middleware(
