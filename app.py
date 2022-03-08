@@ -1,5 +1,6 @@
 from typing import Optional
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from fastapi.responses import FileResponse
 import json
@@ -12,6 +13,18 @@ from utils.config import Midi, Vels, Durs
 from fastapi.templating import Jinja2Templates
 
 app = FastAPI(title=TITLE, description=DESC, version=VERSION)
+
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
