@@ -37,8 +37,8 @@ def read_root(request: Request):
 
 
 @app.post("/audio", response_class=FileResponse)
-def generate_audio_file(midi: Midi, vels: Vels, durs: Durs):
-    return generate_audio(midi.json(), vels.json(), durs.json())
+def generate_audio_file(midi: Midi, vels: Vels, durs: Durs, data: Data ):
+    return generate_audio(midi.json(), vels.json(), durs.json(), data.json() )
 
 
 if __name__ == '__main__':

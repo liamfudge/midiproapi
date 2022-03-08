@@ -4,7 +4,7 @@ from pydub import AudioSegment
 from fastapi.responses import FileResponse
 import uuid
 import os
-from utils.config import piano, OUTPUTS_FOLDER, BARS
+from utils.config import Instruments, OUTPUTS_FOLDER, BARS
 import json
 
 
@@ -23,10 +23,12 @@ def delete_audio_file(audio_file_name):
     os.remove(OUTPUTS_FOLDER + audio_file_name)
 
 
-def generate_audio(midi, vels, durs):
+def generate_audio(midi, vels, durs, data):
     """
         Function to generate the audio file
     """
+
+    data = json.loads(data);
     midi = json.loads(midi)
     vels = json.loads(vels)
     durs = json.loads(durs)
@@ -36,14 +38,15 @@ def generate_audio(midi, vels, durs):
     overlayPart = AudioSegment.silent(duration=note_val*BARS)
 
     for index, i in enumerate(midi):
-        if len(midi[i]) > 0:
-            for j in range(len(midi[i])):
-                velocity = -(10 - round(vels[i][j]*10))
-                inst_note = piano[str(midi[i][j])] + velocity
-                sound = inst_note[:note_val*durs[i][j]]
-                fadedSound = sound.fade_out(note_val)
-                overlayPart = overlayPart.overlay(
-                    fadedSound, position=index*note_val)
+        if midi[i] is not None:
+            if len(midi[i]) > 0:
+                for j in range(len(midi[i])):
+                    velocity = -(10 - round(vels[i][j]*10))
+                    inst_note = Instruments[data['instID']][str(midi[i][j])] + velocity
+                    sound = inst_note[:note_val*durs[i][j]]
+                    fadedSound = sound.fade_out(note_val)
+                    overlayPart = overlayPart.overlay(
+                        fadedSound, position=index*note_val)
 
     file_name = random_audio_file_name()
 
